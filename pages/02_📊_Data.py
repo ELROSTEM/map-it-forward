@@ -2,6 +2,7 @@ import pandas as pd
 import streamlit as st
 
 import folium
+import base64
 from streamlit_folium import st_folium
 from streamlit_echarts import JsCode, st_echarts
 
@@ -75,9 +76,15 @@ submissions = pd.read_csv("database/submissions.csv")
 m = folium.Map(location=[40.712772, -74.006058], zoom_start=12)
 
 for index,row in submissions.iterrows():
+    encoded = base64.b64encode(open('image/' + str(index) + '.jpg', 'rb').read())
+    text = row["recommendation"] + '<br>Severity=' + str(row["severity"])
+    html = '''
+    <h3>{}</h3>
+    <img src="data:image/jpeg;base64,{}">'''.format(text, encoded.decode('UTF-8'))
+    iframe = folium.IFrame(html, width=320, height=320)
     folium.Marker(
         [row["lat"], row["lon"]], tooltip=row["category"],
-        popup=(row["recommendation"] + '<br>Severity=' + str(row["severity"])), 
+        popup=folium.Popup(iframe), 
     ).add_to(m)
 
 st_folium(m, width=725, returned_objects=[])
