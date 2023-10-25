@@ -76,7 +76,7 @@ submissions = pd.read_csv("database/submissions.csv")
 m = folium.Map(location=[40.712772, -74.006058], zoom_start=12)
 
 for index,row in submissions.iterrows():
-    encoded = base64.b64encode(open('image/' + str(index) + '.jpg', 'rb').read())
+    encoded = base64.b64encode(open('database/images/' + str(index) + '.jpg', 'rb').read())
     text = row["recommendation"] + '<br>Severity=' + str(row["severity"])
     html = '''
     <h3>{}</h3>
