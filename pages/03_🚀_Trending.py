@@ -1,4 +1,7 @@
 import streamlit as st
+from PIL import Image
+import os
+import pandas as pd
 
 st.set_page_config(
      page_title="Map It Forward",
@@ -10,18 +13,22 @@ st.set_page_config(
 )
 
 st.title("Trending Projects 🚀")
+ 
 
-with st.expander("Project 1", expanded=True):
-    st.image("https://static.streamlit.io/examples/dice.jpg")
 
-    st.write("Description of the project goes here.")
+# Read submissions
+df = pd.read_csv("database/submissions.csv")
 
-with st.expander("Project 2", expanded=True):
-    st.image("https://static.streamlit.io/examples/dice.jpg")
+# Find images path
+path = r"./database/images/"
+files = os.listdir(path)
 
-    st.write("Description of the project goes here.")
-
-with st.expander("Project 3", expanded=True):
-    st.image("https://static.streamlit.io/examples/dice.jpg")
-
-    st.write("Description of the project goes here.")
+for file in files:
+    # make sure file is an image
+    if file.endswith(('.jpg', 'jpeg')):
+        img_path = path + file
+        img = Image.open(img_path)
+        
+        with st.expander(f"Submission {file[:-4]}", expanded=True):
+            st.image(img)
+            st.write(df.iloc[int(file[:-4])]['description'])
