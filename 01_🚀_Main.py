@@ -25,7 +25,7 @@ st.set_page_config(
      page_icon="📍",
      initial_sidebar_state="expanded",
      menu_items={
-         'About': "Show where you want community imporvemnts!"
+         'About': "Show where you want community improvements!"
      }
 )
 
@@ -34,10 +34,11 @@ st.sidebar.info(f'If you find a bug, please report it [here.](https://github.com
 
 # Logo
 logo = Image.open('image/logo.jpg')
-st.image(logo, width=300)
+st.image(logo)
 
 st.title('Map It Forward')
-st.markdown("## Show where you want community imporvemnts!")
+st.markdown("## a participatory community mapping tool")
+st.markdown("pin where you want community improvements!")
 
 # Load data
 submissions = pd.read_csv("database/submissions.csv")
