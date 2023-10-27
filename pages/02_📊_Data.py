@@ -98,8 +98,8 @@ def get_project_dict(column, isCompletedOption):
     columnDict = dict()
     for i in range(len(columnSeries.tolist())):
         elem = columnSeries.tolist()[i]
-        if column == "address": 
-            elem = columnSeries.tolist()[i].split(", ")[-5]
+        #if column == "address": 
+        #    elem = columnSeries.tolist()[i].split(", ")[-5]
         # Only add to dictionary if the project is what the user wants to see
         if isCompletedOption == 'All projects':
             columnDict[elem] = columnDict.get(elem, 0) + 1

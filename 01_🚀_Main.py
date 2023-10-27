@@ -116,15 +116,22 @@ with st.form("Add submission", clear_on_submit=True):
     reccomendation = st.text_area("Reccomendation")
     severity = st.slider("Severity", min_value=0, max_value=10, value=0)
     description = st.text_area("Description")
+    img_file_buffer = st.camera_input("Take a picture")
+
 
 
     if st.form_submit_button("Submit"):
         # Check if all fields are filled out
-        if age == 0.0 or category == [] or lat == 0.0 or lon == 0.0 or not address or not reccomendation or severity == 0 or not description:
+        if age == 0.0 or category == [] or lat == 0.0 or lon == 0.0 or not address or not reccomendation or not description or img_file_buffer == None:
             st.error("Please fill out all fields!")
         else:
-            df.loc[len(df)] = [today_date, age, category, lat, lon, address, reccomendation, severity, description]
+            df.loc[len(df)] = [today_date, age, category, lat, lon, address, reccomendation, severity, description, 0]
             df.to_csv("database/submissions.csv", index=False)
+                      
+            # To read image file buffer as a PIL Image:
+            img = Image.open(img_file_buffer)
+            st.image(img)
+            img.save("database/images/" + str(len(df) - 1) + ".jpg")
             
             st.success("Submission submitted!")
             sleep(1)
