@@ -12,9 +12,7 @@ st.set_page_config(
      }
 )
 
-st.title("Trending Projects 🚀")
- 
-
+st.title("🔥 Trending Projects")
 
 # Read submissions
 df = pd.read_csv("database/submissions.csv")
@@ -31,4 +29,10 @@ for file in files:
         
         with st.expander(f"Submission {file[:-4]}", expanded=True):
             st.image(img)
+            st.caption(df.iloc[int(file[:-4])]['address'])
+            st.subheader("Category")
+            st.write(df.iloc[int(file[:-4])]['category'])
+            st.subheader("Description")
             st.write(df.iloc[int(file[:-4])]['description'])
+            st.subheader("Recommendation")
+            st.write(df.iloc[int(file[:-4])]['recommendation'])

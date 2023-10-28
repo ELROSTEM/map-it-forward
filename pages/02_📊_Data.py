@@ -67,17 +67,17 @@ st.set_page_config(
      }
 )
 
-st.title("🚧 Submission Data 🏗️")
+st.title("📊 Data")
 
 # Load data
 submissions = pd.read_csv("database/submissions.csv")
 
 # Map Location
-m = folium.Map(location=[40.712772, -74.006058], zoom_start=12)
+m = folium.Map(location=[40.712772, -74.006058], zoom_start=12, min_zoom=3, min_lat = 40.3, max_lat = 40.98, min_lon = -73.5, max_lon = -74.4, max_bounds = True)
 
 for index,row in submissions.iterrows():
     encoded = base64.b64encode(open('database/images/' + str(index) + '.jpg', 'rb').read())
-    text = row["recommendation"] + '<br>Severity=' + str(row["severity"])
+    text = row["recommendation"] + '<br>Severity: ' + str(row["severity"])
     html = '''
     <h3>{}</h3>
     <img src="data:image/jpeg;base64,{}">'''.format(text, encoded.decode('UTF-8'))
@@ -87,7 +87,7 @@ for index,row in submissions.iterrows():
         popup=folium.Popup(iframe), 
     ).add_to(m)
 
-st_folium(m, width=725, returned_objects=[])
+st_folium(m, height=350, width=700, returned_objects=[])
 
 # Dataframe
 st.dataframe(submissions)

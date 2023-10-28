@@ -36,9 +36,8 @@ st.sidebar.info(f'If you find a bug, please report it [here.](https://github.com
 logo = Image.open('image/logo.jpg')
 st.image(logo)
 
-st.title('Map It Forward')
-st.markdown("## a participatory community mapping tool")
-st.markdown("pin where you want community improvements!")
+st.markdown("## A participatory community mapping tool")
+st.markdown("Pin where you want community improvements!")
 
 # Load data
 submissions = pd.read_csv("database/submissions.csv")
