@@ -12,7 +12,7 @@ st.set_page_config(
      }
 )
 
-st.title("🔥 Trending Projects")
+st.title("🔥 Trending")
 
 # Read submissions
 df = pd.read_csv("database/submissions.csv")
